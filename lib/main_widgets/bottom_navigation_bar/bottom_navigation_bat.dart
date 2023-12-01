@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/generated/l10n.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   final Function(int currentPageIndex)? onTap;
@@ -15,13 +16,13 @@ class AppBottomNavigationBar extends StatelessWidget {
     return BottomNavigationBar(
       onTap: onTap,
       currentIndex: currentIndex,
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          label: 'Герои',
-          icon: Icon(Icons.home),
+          label: S.of(context).characters,
+          icon: const Icon(Icons.home),
         ),
         BottomNavigationBarItem(
-          label: 'Эпизоды',
+          label: S.of(context).episods,
           icon: Icon(Icons.person),
         ),
       ],

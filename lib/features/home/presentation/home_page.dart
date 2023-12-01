@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/characters_body_widget.dart';
-import 'package:rick_and_morty/features/episods/presentation/bloc/home_bloc.dart';
 import 'package:rick_and_morty/features/episods/presentation/episods_body_widget.dart';
+import 'package:rick_and_morty/features/home/presentation/bloc/home_bloc.dart';
 import 'package:rick_and_morty/main_widgets/bottom_navigation_bar/bottom_navigation_bat.dart';
+
+import '../../../generated/l10n.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -24,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Rick & Morty'),
+          title: Text(S.of(context).rickMorty),
         ),
         // body: CharavtersBodyWidget(),
         body: BlocBuilder(

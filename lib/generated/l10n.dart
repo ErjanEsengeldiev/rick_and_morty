@@ -49,6 +49,36 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Rick & Morty`
+  String get rickMorty {
+    return Intl.message(
+      'Rick & Morty',
+      name: 'rickMorty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Герои`
+  String get characters {
+    return Intl.message(
+      'Герои',
+      name: 'characters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Эпизоды`
+  String get episods {
+    return Intl.message(
+      'Эпизоды',
+      name: 'episods',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
