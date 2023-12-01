@@ -19,11 +19,11 @@ class AppBottomNavigationBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           label: S.of(context).characters,
-          icon: const Icon(Icons.home),
+          icon: const Icon(Icons.person),
         ),
         BottomNavigationBarItem(
           label: S.of(context).episods,
-          icon: Icon(Icons.person),
+          icon: const Icon(Icons.movie),
         ),
       ],
     );

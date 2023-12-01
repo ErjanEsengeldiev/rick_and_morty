@@ -1,5 +1,9 @@
 {
   "rickMorty": "Rick & Morty",
-  "characters": "Герои",
-  "episods": "Эпизоды"
+  "characters": "Characters",
+  "episods": "Episods",
+  "status": "Status:",
+  "gender": "Gender:",
+  "searchByName": "Search by name",
+  "search": "Search"
 }

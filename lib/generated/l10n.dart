@@ -60,21 +60,61 @@ class S {
     );
   }
 
-  /// `Герои`
+  /// `Characters`
   String get characters {
     return Intl.message(
-      'Герои',
+      'Characters',
       name: 'characters',
       desc: '',
       args: [],
     );
   }
 
-  /// `Эпизоды`
+  /// `Episods`
   String get episods {
     return Intl.message(
-      'Эпизоды',
+      'Episods',
       name: 'episods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status:`
+  String get status {
+    return Intl.message(
+      'Status:',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender:`
+  String get gender {
+    return Intl.message(
+      'Gender:',
+      name: 'gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search by name`
+  String get searchByName {
+    return Intl.message(
+      'Search by name',
+      name: 'searchByName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
       desc: '',
       args: [],
     );
