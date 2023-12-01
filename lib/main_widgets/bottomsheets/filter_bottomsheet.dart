@@ -1,14 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty/core/app_theme/text_helper.dart';
 import 'package:rick_and_morty/core/constans/app_constans.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
+import 'package:rick_and_morty/features/episods/presentation/bloc/episods_bloc.dart';
 import 'package:rick_and_morty/generated/l10n.dart';
 
 class FilterBottomsheet {
-  static showModalBottomsheet(BuildContext context,
-      {required CharactersBloc charactersBloc}) {
+  static showCharactersModalBottomsheet(
+    BuildContext context, {
+    required CharactersBloc charactersBloc,
+  }) {
     String name = '';
     String status = '';
     String gender = '';
@@ -115,6 +120,79 @@ class FilterBottomsheet {
                         SortedCharactersEvent(
                           status: status,
                           gender: gender,
+                          name: name,
+                        ),
+                      );
+                      context.pop();
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(S.of(context).search),
+                        const Icon(Icons.search),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
+  static showEpisodeModalBottomsheet(
+    BuildContext context, {
+    required EpisodsBloc episodsBloc,
+  }) {
+    String name = '';
+    String episode = '';
+
+    showModalBottomSheet(
+      useRootNavigator: false,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height / 1.4,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    width: 70,
+                    child: Divider(
+                      thickness: 2,
+                    ),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: S.of(context).searchByName,
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      suffixIcon: const Icon(Icons.search),
+                    ),
+                    onChanged: (value) {
+                      name = value;
+                    },
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: S.of(context).searchByEpisode,
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      suffixIcon: const Icon(Icons.search),
+                    ),
+                    onChanged: (value) {
+                      episode = value;
+                    },
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      episodsBloc.add(
+                        SortedEpisodsEvent(
+                          episode: episode,
                           name: name,
                         ),
                       );

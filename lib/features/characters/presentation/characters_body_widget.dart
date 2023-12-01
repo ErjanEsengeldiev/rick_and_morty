@@ -107,9 +107,7 @@ class _CharavtersBodyWidgetState extends State<CharavtersBodyWidget> {
             child: CircularProgressIndicator(),
           );
         } else {
-          return const Center(
-            child: Text('uncknown state'),
-          );
+          return const SizedBox();
         }
       },
     );

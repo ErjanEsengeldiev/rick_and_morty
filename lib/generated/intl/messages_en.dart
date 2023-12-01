@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gender": MessageLookupByLibrary.simpleMessage("Gender:"),
         "rickMorty": MessageLookupByLibrary.simpleMessage("Rick & Morty"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "searchByEpisode":
+            MessageLookupByLibrary.simpleMessage("Search by episode"),
         "searchByName": MessageLookupByLibrary.simpleMessage("Search by name"),
         "status": MessageLookupByLibrary.simpleMessage("Status:")
       };

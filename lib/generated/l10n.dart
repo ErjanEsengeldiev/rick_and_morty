@@ -119,6 +119,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Search by episode`
+  String get searchByEpisode {
+    return Intl.message(
+      'Search by episode',
+      name: 'searchByEpisode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

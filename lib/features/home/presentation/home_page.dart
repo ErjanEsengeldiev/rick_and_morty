@@ -7,6 +7,9 @@ import 'package:rick_and_morty/features/characters/domain/repository/characters_
 import 'package:rick_and_morty/features/characters/domain/repository/characters_repository_impl.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/characters_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/characters_body_widget.dart';
+import 'package:rick_and_morty/features/episods/domain/repository/episods_repository.dart';
+import 'package:rick_and_morty/features/episods/domain/repository/episods_repository_impl.dart';
+import 'package:rick_and_morty/features/episods/presentation/bloc/episods_bloc.dart';
 import 'package:rick_and_morty/features/episods/presentation/episods_body_widget.dart';
 import 'package:rick_and_morty/features/home/presentation/bloc/home_bloc.dart';
 import 'package:rick_and_morty/main_widgets/bottom_navigation_bar/bottom_navigation_bat.dart';
@@ -26,15 +29,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late final CharactersRepository charactersRepository;
   late final CharactersBloc charactersBloc;
+  late final EpisodsRepository episodsRepository;
+  late final EpisodsBloc episodsBloc;
+  late final HomeBloc _homeBloc;
 
   @override
   void initState() {
     charactersRepository = CharactersRepositoryImpl();
     charactersBloc = CharactersBloc(charactersRepository);
+    episodsRepository = EpisodsRepositoryImpl();
+    episodsBloc = EpisodsBloc(episodsRepository);
+    _homeBloc = HomeBloc();
     super.initState();
   }
-
-  final _homeBloc = HomeBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -42,46 +49,66 @@ class _MyHomePageState extends State<MyHomePage> {
       providers: [
         Provider<CharactersRepository>(create: (_) => charactersRepository),
         Provider<CharactersBloc>(create: (_) => charactersBloc),
+        Provider<EpisodsRepository>(create: (_) => episodsRepository),
+        Provider<EpisodsBloc>(create: (_) => episodsBloc),
         Provider<HomeBloc>(create: (_) => _homeBloc),
       ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(S.of(context).rickMorty),
-          actions: [
-            IconButton(
-              onPressed: () {
-                FilterBottomsheet.showModalBottomsheet(context,
-                    charactersBloc: charactersBloc);
-              },
-              icon: Icon(Icons.sort),
-            ),
-          ],
-        ),
-        body: BlocBuilder(
+      child: BlocBuilder(
           bloc: _homeBloc,
           builder: (context, state) {
-            if (state is HomeScreenChangedState) {
-              switch (state.currentIndex) {
-                case 0:
-                  return const CharavtersBodyWidget();
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(S.of(context).rickMorty),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      switch ((state as HomeScreenChangedState).currentIndex) {
+                        case 0:
+                          FilterBottomsheet.showCharactersModalBottomsheet(
+                            context,
+                            charactersBloc: charactersBloc,
+                          );
+                          break;
+                        case 1:
+                          FilterBottomsheet.showEpisodeModalBottomsheet(
+                            context,
+                            episodsBloc: episodsBloc,
+                          );
+                          break;
+                        default:
+                      }
+                    },
+                    icon: Icon(Icons.sort),
+                  ),
+                ],
+              ),
+              body: BlocBuilder(
+                bloc: _homeBloc,
+                builder: (context, state) {
+                  if (state is HomeScreenChangedState) {
+                    switch (state.currentIndex) {
+                      case 0:
+                        return const CharavtersBodyWidget();
 
-                case 1:
-                  return const EpisodsBodyWidget();
+                      case 1:
+                        return const EpisodsBodyWidget();
 
-                default:
-                  return const CharavtersBodyWidget();
-              }
-            } else {
-              return const CharavtersBodyWidget();
-            }
-          },
-        ),
-        bottomNavigationBar: AppBottomNavigationBar(
-          onTap: (currentPageIndex) => _homeBloc.add(
-            ChangePageEvent(currentPageIndex),
-          ),
-        ),
-      ),
+                      default:
+                        return const CharavtersBodyWidget();
+                    }
+                  } else {
+                    return const CharavtersBodyWidget();
+                  }
+                },
+              ),
+              bottomNavigationBar: AppBottomNavigationBar(
+                currentIndex: (state as HomeScreenChangedState).currentIndex,
+                onTap: (currentPageIndex) => _homeBloc.add(
+                  ChangePageEvent(currentPageIndex),
+                ),
+              ),
+            );
+          }),
     );
   }
 }
